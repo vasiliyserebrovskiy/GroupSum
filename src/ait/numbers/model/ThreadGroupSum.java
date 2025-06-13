@@ -13,7 +13,7 @@ public class ThreadGroupSum extends GroupSum {
 
     @Override
     public int computeSum() {
-        // TODO ThreadGroupSum
+
         int rows = numberGroups.length;
 
         GroupSum[] tasks = new GroupSum[rows];

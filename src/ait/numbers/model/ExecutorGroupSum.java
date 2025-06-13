@@ -12,7 +12,7 @@ public class ExecutorGroupSum extends GroupSum{
 
     @Override
     public int computeSum() {
-        // TODO ExecutorGroupSum
+
         int rows = numberGroups.length;
 
         GroupSum[] tasks = new GroupSum[rows];
