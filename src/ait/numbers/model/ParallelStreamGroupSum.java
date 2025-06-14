@@ -17,9 +17,7 @@ public class ParallelStreamGroupSum extends GroupSum{
 
         return Arrays.stream(numberGroups)
                 .parallel()
-                .mapToInt(row -> {
-                    return Arrays.stream(row).sum();
-                })
+                .mapToInt(row -> Arrays.stream(row).sum())
                 .sum();
     }
 }

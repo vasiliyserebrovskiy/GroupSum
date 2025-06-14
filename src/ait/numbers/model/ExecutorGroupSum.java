@@ -22,7 +22,10 @@ public class ExecutorGroupSum extends GroupSum{
             tasks[i] = new ThreadGroupSum(numberGroups, i);
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        //ExecutorService executorService = Executors.newFixedThreadPool(10);
+        int cpus = Runtime.getRuntime().availableProcessors();
+        ExecutorService executorService = Executors.newWorkStealingPool(cpus);
 
         for (int i = 0; i < rows; i++) {
             executorService.execute(tasks[i]);
