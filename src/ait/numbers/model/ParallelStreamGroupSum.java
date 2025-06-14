@@ -15,8 +15,12 @@ public class ParallelStreamGroupSum extends GroupSum{
 //                .flatMapToInt(Arrays::stream)
 //                .sum();
 
-        return Arrays.stream(numberGroups)
-                .parallel()
+//        return Arrays.stream(numberGroups)
+//                .parallel()
+//                .mapToInt(row -> Arrays.stream(row).sum())
+//                .sum();
+
+        return Arrays.asList(numberGroups).parallelStream()
                 .mapToInt(row -> Arrays.stream(row).sum())
                 .sum();
     }
