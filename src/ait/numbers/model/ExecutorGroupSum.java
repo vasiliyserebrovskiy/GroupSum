@@ -1,11 +1,13 @@
 package ait.numbers.model;
 
+import ait.numbers.task.OneGroupSum;
+
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class ExecutorGroupSum extends GroupSum{
+public class ExecutorGroupSum extends GroupSum {
     public ExecutorGroupSum(int[][] numberGroups) {
         super(numberGroups);
     }
@@ -15,13 +17,12 @@ public class ExecutorGroupSum extends GroupSum{
 
         int rows = numberGroups.length;
 
-        GroupSum[] tasks = new GroupSum[rows];
+        OneGroupSum[] tasks = new OneGroupSum[rows];
 
         // Create tasks
         for (int i = 0; i < rows; i++) {
-            tasks[i] = new ThreadGroupSum(numberGroups, i);
+            tasks[i] = new OneGroupSum(numberGroups[i]);
         }
-
 
         //ExecutorService executorService = Executors.newFixedThreadPool(10);
         int cpus = Runtime.getRuntime().availableProcessors();
@@ -41,6 +42,6 @@ public class ExecutorGroupSum extends GroupSum{
         }
 
 
-        return Arrays.stream(tasks).mapToInt(GroupSum::getRowSum).sum();
+        return Arrays.stream(tasks).mapToInt(OneGroupSum::getSum).sum();
     }
 }

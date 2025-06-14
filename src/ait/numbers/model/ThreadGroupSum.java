@@ -1,5 +1,7 @@
 package ait.numbers.model;
 
+import ait.numbers.task.OneGroupSum;
+
 import java.util.Arrays;
 
 public class ThreadGroupSum extends GroupSum {
@@ -7,20 +9,16 @@ public class ThreadGroupSum extends GroupSum {
         super(numberGroups);
     }
 
-    public ThreadGroupSum(int[][] numberGroups, int rowIndex) {
-        super(numberGroups, rowIndex);
-    }
-
     @Override
     public int computeSum() {
 
         int rows = numberGroups.length;
 
-        GroupSum[] tasks = new GroupSum[rows];
+        OneGroupSum[] tasks = new OneGroupSum[rows];
 
         // Create tasks
         for (int i = 0; i < rows; i++) {
-            tasks[i] = new ThreadGroupSum(numberGroups, i);
+            tasks[i] = new OneGroupSum(numberGroups[i]);
         }
 
         Thread[] threads = new Thread[rows];
@@ -40,6 +38,6 @@ public class ThreadGroupSum extends GroupSum {
             }
         }
 
-        return Arrays.stream(tasks).mapToInt(GroupSum::getRowSum).sum();
+        return Arrays.stream(tasks).mapToInt(OneGroupSum::getSum).sum();
     }
 }
